@@ -2,7 +2,7 @@ package monopoly;
 
 /**
  * Checked exception when for errors in the monopoly application.
- * 
+ *
  * @author Open Universiteit
  * 
  */
