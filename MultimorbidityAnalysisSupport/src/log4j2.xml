@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://logging.apache.org/log4j/2.5/manual/configuration.html -->
+<Configuration status="WARN">
+	<Appenders>
+		<!-- Console for INFO messages about the tool -->
+		<Console name="ToolInfo" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss} %-5level - %msg%n"/>
+		</Console>
+		<!--  General console for WARN messages and higher -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+		</Console>
+		<!-- As much as possible information in the log file -->
+		<File name="Logfile" fileName="tool.log" append="false">
+			<PatternLayout pattern="%d{HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+		</File>
+	</Appenders>
+	<Loggers>
+		<!--  With normal use of the tool no messages higher than INFO are shown  -->
+		<!--
+	 	<Logger name="multimorbidity" level="info">
+			<AppenderRef ref="ToolInfo"/>
+	 	</Logger>	 	
+		-->
+		<Root level="trace">
+			<AppenderRef ref="Logfile"/>
+			<AppenderRef ref="Console" level="warn"/>
+
+		</Root>
+	</Loggers>
+</Configuration>

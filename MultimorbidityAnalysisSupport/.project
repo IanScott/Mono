@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>MultimorbidityAnalysisSupport</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>JarFiles/junit.jar</name>
+			<type>1</type>
+			<location>D:/Program_Files_OU/eclipse/plugins/org.junit_4.11.0.v201303080030/junit.jar</location>
+		</link>
+		<link>
+			<name>JarFiles/log4j-core-2.5.jar</name>
+			<type>1</type>
+			<location>D:/My work documents/OU/Java/Log4j/apache-log4j-2.5-bin/log4j-core-2.5.jar</location>
+		</link>
+	</linkedResources>
+</projectDescription>

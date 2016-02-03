@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Program Files/Java/jdk1.7.0_79/jre/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="JarFiles/javaGD.jar"/>
+	<classpathentry kind="lib" path="JarFiles/JRI.jar"/>
+	<classpathentry kind="lib" path="JarFiles/JRIEngine.jar"/>
+	<classpathentry kind="lib" path="JarFiles/poi-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="JarFiles/poi-3.5-final.jar"/>
+	<classpathentry kind="lib" path="JarFiles/REngine.jar"/>
+	<classpathentry kind="lib" path="JarFiles/RJavaPlugin_1.0.0.201211041420.jar"/>
+	<classpathentry kind="lib" path="JarFiles/log4j-core-2.5.jar"/>
+	<classpathentry kind="lib" path="JarFiles/log4j-api-2.5.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/log4j_2.5"/>
+	<classpathentry kind="lib" path="JarFiles/junit.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
