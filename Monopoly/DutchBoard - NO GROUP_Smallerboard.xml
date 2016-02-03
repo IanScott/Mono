@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Board>
+	<Groups>
+		<Group>
+			<Name>ONS DORP</Name>
+		</Group>
+		<Group>
+			<Name>ARNHEM</Name>
+		</Group>
+		<Group>
+			<Name>HAARLEM</Name>
+		</Group>
+		<Group>
+			<Name>UTRECHT</Name>
+		</Group>
+		<Group>
+			<Name>GRONINGEN</Name>
+		</Group>
+		<Group>
+			<Name>'S GRAVENHAGE</Name>
+		</Group>
+		<Group>
+			<Name>ROTTERDAM</Name>
+		</Group>
+		<Group>
+			<Name>AMSTERDAM</Name>
+		</Group>
+		<Group>
+			<Name>ONS DORP</Name>
+		</Group>
+		<Group>
+			<Name>ARNHEM</Name>
+		</Group>
+		<Group>
+			<Name>HAARLEM</Name>
+		</Group>
+		<Group>
+			<Name>UTRECHT</Name>
+		</Group>
+		<Group>
+			<Name>GRONINGEN</Name>
+		</Group>
+		<Group>
+			<Name>'S GRAVENHAGE</Name>
+		</Group>
+		<Group>
+			<Name>ROTTERDAM</Name>
+		</Group>
+		<Group>
+			<Name>AMSTERDAM</Name>
+		</Group>
+		<Group>
+			<Name>GRONINGEN</Name>
+		</Group>
+		<Group>
+			<Name>'S GRAVENHAGE</Name>
+		</Group>
+		<Group>
+			<Name>ROTTERDAM</Name>
+		</Group>
+		<Group>
+			<Name>AMSTERDAM</Name>
+		</Group>
+	</Groups>
+<Rents>
+	<Rent>
+		<Number>0</Number>
+		<List>2, 10, 30, 90, 160, 250</List>
+	</Rent>
+	<Rent>	
+		<Number>1</Number>
+		<List>6, 30, 90, 270, 400, 550</List>
+	</Rent>
+	<Rent>
+		<Number>2</Number>
+		<List>8, 40, 100, 300, 450, 600</List>
+	</Rent>
+	<Rent>
+		<Number>3</Number>
+		<List>10, 50, 150, 450, 625, 750</List>
+	</Rent>
+	<Rent>
+		<Number>4</Number>
+		<List>12, 60, 180, 500, 700, 900</List>
+	</Rent>
+	<Rent>
+		<Number>5</Number>
+		<List>14, 70, 200, 550, 750, 950</List>
+	</Rent>
+	<Rent>
+		<Number>6</Number>
+		<List>16, 80, 220, 600, 800, 1000</List>
+	</Rent>
+	<Rent>
+		<Number>7</Number>
+		<List>18, 90, 250, 700, 875, 1050</List>
+	</Rent>
+	<Rent>
+		<Number>8</Number>
+		<List>20, 100, 300, 750, 925, 1100</List>
+	</Rent>
+	<Rent>
+		<Number>9</Number>
+		<List>22, 110, 330, 800, 975, 1150</List>
+	</Rent>
+	<Rent>
+		<Number>10</Number>
+		<List>24, 120, 360, 850, 1025, 1200</List>
+	</Rent>
+	<Rent>
+		<Number>11</Number>
+		<List>26, 130, 390, 900, 1100, 1275</List>
+	</Rent>
+	<Rent>
+		<Number>12</Number>
+		<List>28, 150, 450, 1000, 1200, 1400</List>
+	</Rent>
+	<Rent>
+		<Number>13</Number>
+		<List>35, 175, 500, 1100, 1300, 1500</List>
+	</Rent>
+	<Rent>
+		<Number>14</Number>
+		<List>50, 200, 600, 1400, 1700, 2000</List>
+	</Rent>
+</Rents>
+<Squares>
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>DORPSTRAAT</Name>
+		<Group>0</Group>
+		<Price>60</Price>
+		<Houseprice>50</Houseprice>
+		<Rentlist>0</Rentlist>
+	</Square>
+	<Square>
+		<Type>ChanceSquare</Type>
+		<Name>TEST</Name>
+		<Decktype>1</Decktype>
+	</Square>
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>BRINK</Name>
+		<Group>1</Group>
+		<Price>60</Price>
+		<Houseprice>50</Houseprice>
+		<Rentlist>1</Rentlist>
+	</Square>
+	<Square>
+		<Type>IncomeTaxSquare</Type>
+		<Name>INKOMSTENBELASTING</Name>
+		<Percent>10</Percent>
+		<Max>200</Max>
+	</Square>
+	<Square>
+		<Type>RailroadSquare</Type>
+		<Name>STATION ZUID</Name>
+		<Price>200</Price>
+		<Baserent>25</Baserent>
+	</Square>	
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>STEENSTRAAT</Name>
+		<Group>2</Group>
+		<Price>100</Price>
+		<Houseprice>50</Houseprice>
+		<Rentlist>2</Rentlist>
+	</Square>
+	<Square>
+		<Type>RegularSquare</Type>
+		<Name>KANS</Name>
+	</Square>
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>KETELSTRAAT</Name>
+		<Group>3</Group>
+		<Price>100</Price>
+		<Houseprice>50</Houseprice>
+		<Rentlist>2</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>VELPERPLEIN</Name>
+		<Group>4</Group>
+		<Price>120</Price>
+		<Houseprice>50</Houseprice>
+		<Rentlist>3</Rentlist>
+	</Square>
+	<Square>
+		<Type>JailSquare</Type>
+		<Name>GEVANGENIS</Name>
+		<Bail>50</Bail>
+	</Square>	  
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>BARTELJORISSTRAAT</Name>
+		<Group>5</Group>
+		<Price>140</Price>
+		<Houseprice>100</Houseprice>
+		<Rentlist>4</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>UtilitySquare</Type>
+		<Name>ELECTRICITEITSBEDRIJF</Name>
+		<Price>120</Price>
+		<Base>4</Base>
+		<Groupbase>10</Groupbase>
+	</Square>    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>ZIJLWEG</Name>
+		<Group>6</Group>
+		<Price>140</Price>
+		<Houseprice>100</Houseprice>
+		<Rentlist>4</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>HOUTSTRAAT</Name>
+		<Group>7</Group>
+		<Price>160</Price>
+		<Houseprice>100</Houseprice>
+		<Rentlist>5</Rentlist>
+	</Square>	   
+	<Square>
+		<Type>RailroadSquare</Type>
+		<Name>STATION WEST</Name>
+		<Price>200</Price>
+		<Baserent>25</Baserent>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>NEUDE</Name>
+		<Group>8</Group>
+		<Price>180</Price>
+		<Houseprice>100</Houseprice>
+		<Rentlist>6</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>RegularSquare</Type>
+		<Name>ALGEMEEN FONDS</Name>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>BILTSTRAAT</Name>
+		<Group>9</Group>
+		<Price>180</Price>
+		<Houseprice>100</Houseprice>
+		<Rentlist>6</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>VREEBURG</Name>
+		<Group>10</Group>
+		<Price>200</Price>
+		<Houseprice>100</Houseprice>
+		<Rentlist>7</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>RegularSquare</Type>
+		<Name>VRIJ PARKEREN</Name>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>A-KERKHOF</Name>
+		<Group>11</Group>
+		<Price>220</Price>
+		<Houseprice>150</Houseprice>
+		<Rentlist>8</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>RegularSquare</Type>
+		<Name>KANS</Name>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>GROOTE MARKT</Name>
+		<Group>12</Group>
+		<Price>220</Price>
+		<Houseprice>150</Houseprice>
+		<Rentlist>8</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>HEERESTRAAT</Name>
+		<Group>13</Group>
+		<Price>240</Price>
+		<Houseprice>150</Houseprice>
+		<Rentlist>9</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>RailroadSquare</Type>
+		<Name>STATION NOORD</Name>
+		<Price>200</Price>
+		<Baserent>25</Baserent>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>SPUI</Name>
+		<Group>14</Group>
+		<Price>260</Price>
+		<Houseprice>150</Houseprice>
+		<Rentlist>10</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>PLEIN</Name>
+		<Group>15</Group>
+		<Price>260</Price>
+		<Houseprice>150</Houseprice>
+		<Rentlist>10</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>UtilitySquare</Type>
+		<Name>WATERLEIDINGSBEDRIJF</Name>
+		<Price>150</Price>
+		<Base>4</Base>
+		<Groupbase>10</Groupbase>
+	</Square>	    
+	<Square>
+		<Type>LotSquare</Type>
+		<Name>LANGE POOTEN</Name>
+		<Group>16</Group>
+		<Price>280</Price>
+		<Houseprice>150</Houseprice>
+		<Rentlist>11</Rentlist>
+	</Square>	    
+	<Square>
+		<Type>GoToJailSquare</Type>
+		<Name>NAAR DE GEVANGENIS</Name>
+	</Square>	    
+		    
+</Squares>
+</Board>
