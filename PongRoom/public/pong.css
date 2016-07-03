@@ -1,0 +1,55 @@
+div#chatroom {
+	display: block;
+	height: 300px;
+	border: 1px solid #999;
+	overflow: auto;
+	width: 100%;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+ul#chat_log {
+	list-style: none;
+	position: absolute;
+	bottom: 0px;
+}
+
+input#chat_box {
+	
+	width: 99%;
+	}
+
+
+#matter #field{
+    width:900px;
+    height:400px;
+    border:solid #000000 medium;
+    position: relative;
+}
+.player{
+    background-color: red;
+    height: 100px;
+    width: 25px;
+    position: absolute;
+    
+}
+#player1{
+    left:10px;
+}
+#player2{
+    right:10px;
+}
+
+#ball{
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    
+    background-color: black;
+    border-radius: 20px;
+}
+#score{
+    color:black;
+    font-size: 25pt;
+    font-weight: bold;
+}

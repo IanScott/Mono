@@ -1,0 +1,230 @@
+<html>
+<head>
+<link  href="pong.css" type="text/css" rel="stylesheet"/>
+<script src="/socket.io/socket.io.js"></script>
+<script src="jquery-2.1.0.js"></script>
+<script type="text/javascript" charset="utf-8">
+var oldY = null;
+var p1moving = false;
+var p2moving = false;
+var i =0;
+var y1 =0;
+
+var y2=0;
+
+var bx;
+var by;
+var timer;
+
+jQuery(document).ready(function () {
+
+
+	$("body").mouseup(function() { 
+        clearInterval(timer);
+	});
+
+	$("#upR").mousedown(function() {
+	socket.emit('p2move', {delta: -10});
+    	timer = setInterval(function(){socket.emit('p2move', {delta: -10})},100);
+	});
+
+	
+	$("#downR").mousedown(function() {
+	socket.emit('p2move', {delta: 10});
+	timer = setInterval(function(){socket.emit('p2move', {delta: 10})},100);
+	});
+	
+	$("#upL").mousedown(function() {
+	socket.emit('p1move', {delta: -10});
+	timer = setInterval(function(){socket.emit('p1move', {delta: -10})},100);
+	});
+		
+	$("#downL").mousedown(function() {
+	socket.emit('p1move', {delta: 10});
+	timer = setInterval(function(){socket.emit('p1move', {delta: 10})},100);
+	});
+		
+	$("#reset").click(function() {
+	socket.emit('reset');
+	$("#score").html("Score: "+0+" - "+0);
+	});
+
+	var log_chat_message = function  (message, type) {
+		var li = jQuery('<li />').text(message);
+		
+		if (type === 'system') {
+			li.css({'font-weight': 'bold'});
+		} else if (type === 'leave') {
+			li.css({'font-weight': 'bold', 'color': '#F00'});
+		}
+				
+		jQuery('#chat_log').append(li);
+	};
+
+	var socket = io.connect('http://84.82.145.170:3000');
+	
+
+	
+	/*
+	$('#player1').mousemove(function (event) {
+		i++;
+		if(p1moving && oldY!==null){
+        	var dy = event.screenY - oldY;
+		$('#player1').css("background-color","yellow");
+		
+		socket.emit('p1move', {delta: dy});}
+		    		oldY = event.screenY;
+
+		
+		});
+
+
+	$('#player2').mousemove(function (event) {
+		
+		if(p2moving && oldY!==null){
+        	var dy = event.screenY - oldY;
+		$('#player2').css("background-color","yellow");
+		socket.emit('p2move', {delta: dy});
+    		}
+    		oldY = event.screenY;
+
+		
+		});
+	*/
+	socket.on('p1move', function  (data) {
+		$("#ball").css("top", data["yb"]+"px"); 
+		$("#ball").css("left", data["xb"]+"px");
+		$("#player1").css("top", data["yp1"]+"px");
+	});
+
+	
+	socket.on('p2move', function  (data) {
+		$("#ball").css("top", data["yb"]+"px"); 
+		$("#ball").css("left", data["xb"]+"px");
+		$("#player2").css("top", data["yp2"]+"px");
+	});
+	
+	socket.on('ballmove', function  (data) { 
+		$("#ball").css("top", data["yb"]+"px"); 
+		$("#ball").css("left", data["xb"]+"px");
+	});
+
+	
+		
+	socket.on('entrance', function  (data) {
+		log_chat_message(data.message, 'system');
+		socket.emit('p1move', {delta: 0});
+		socket.emit('p2move', {delta: 0});
+		
+	});
+
+	socket.on('exit', function  (data) {
+		log_chat_message(data.message, 'leave');
+	});
+
+	socket.on('score', function  (data) {
+		
+		$("#score").html("Score: "+data.p1+" - "+data.p2);
+	});
+
+	socket.on('chat', function  (data) {
+		log_chat_message(data.message, 'normal');
+	});
+
+	jQuery('#chat_box').keypress(function (event) {
+		if (event.which == 13) {
+			socket.emit('chat', {message: jQuery('#chat_box').val()});
+			jQuery('#chat_box').val('');
+		}
+	});
+	
+	
+	$('#player1').mousedown(ssd);
+	$('#player2').mousedown(ssd2);
+    	$('.player').mouseup(ssu);
+    	
+
+});
+
+
+
+function ssd(event){
+    
+    p1moving =true;
+    oldY = event.screenY;
+}
+
+function ssd2(event){
+    
+    p2moving =true;
+    oldY = event.screenY;
+}
+function ssu(){
+    
+    p1moving = false;
+p2moving =false;
+}
+
+
+
+</script>
+<script type="text/javascript" charset="utf-8">
+
+
+
+
+</script>
+<style type="text/css" media="screen">
+	div#chatroom {
+		display: block;
+		height: 300px;
+		border: 1px solid #999;
+		overflow: auto;
+		width: 100%;
+		margin-bottom: 10px;
+		position: relative;
+	}
+
+	ul#chat_log {
+		list-style: none;
+		position: absolute;
+		bottom: 0px;
+	}
+
+	input#chat_box {
+		width: 99%;
+	}
+	button{
+	width: 80px;
+	height:80px;}
+	
+	#upR{
+	margin-left: 550px;}
+</style>
+</head>
+<body>
+
+	<div id="chatroom">
+		<ul id="chat_log">
+		</ul>
+	</div>
+
+	<input type="text" name="chat_box" value="" id="chat_box" placeholder="type to chat..." /><div id="matter">
+
+
+		<div id="field">
+		<div id="player1" class="player" tabindex="1"></div>
+                 <div id="player2" class="player" tabindex="1"></div>
+                <div id="ball" tabindex="1"></div>
+
+        </div>
+		<button id="upL">UP</button>
+		<button id="downL">DOWN</button>
+		<button id="upR">UP</button>
+		<button id="downR">DOWN</button>
+		<button id="reset">Reset</button>
+            <div>
+                <h2 id="score">Score: 0 - 0</h2>
+            </div>
+</body>
+</html>
