@@ -19,3 +19,5 @@ Authors:
 Sliman Ismaili
 Günther Müller
 Ian van Nieuwkoop
+
+For more information read the MMT Handleiding pdf. (However it is in dutch)
