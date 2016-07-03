@@ -1,0 +1,31 @@
+Association analysis is the task of finding interesting relationships between variables in a data sets. 
+
+1) Correlation between two numeric variables
+
+- Should missing values be removed? Please use the Edit Panel.
+
+- use/completeness: a method for computing covariances in the presence of missing values. 
+    * all.obs (then the presence of missing observations will produce an error)
+    * complete.obs (then missing values are handled by casewise deletion)
+    * pairwise.complete.obs (computed using all complete pairs of observations on those variables)
+
+- method: a character string indicating which correlation coefficient is to be computed. 
+    * pearson 
+    * kendall
+    * spearman
+
+It also possible to conduct a correlation test given an alternative hypothesis and with a confidential level of 95% as default.
+ 
+2) Odds Ration and relative risk between two categorical variables
+
+Relative Risk, Odds Ratio are measures of the DIRECTION and the STRENGTH of the association between two categorical variables.
+
+- method: a character string indicating the experimental design. 
+          Options are cohort.count, cohort.time, case.control, or cross.sectional.
+
+- conf.level: magnitude of the returned confidence intervals. Must be a single number between 0 and 1.
+
+
+
+
+

@@ -1,0 +1,18 @@
+Factor Analysis is used to conceal hidden variables explaining the behavior of your observed variables. 
+The goal is find a smaller number of new variables (latent variables) which explain your whole data well.
+
+step1: select numerical variables that will be used for factor analysis
+
+step2: help me determine the optimal number of factors. A plot will be shown as a result: 
+       look for a bend in the plot, the moment it starts to go up.
+       
+step3: start EFA (Explanatory Factor Analysis) using a method, given the (optimal) 
+       number of factors determined in step 2.
+       Determine scores given number of factors.        
+        
+step4: start CFA (Confirmatory Factor Analysis) by selecting first the variables 
+       corresponding to the (possible) latent variable concealed in step 3.
+       
+
+
+

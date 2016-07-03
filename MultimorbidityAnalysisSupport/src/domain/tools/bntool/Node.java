@@ -5,17 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class represents a Node in a Bayesian network
+ * Class represents a Node in a Bayesian network.
  * @author ABI team 37
- * @version 0.1
+ * @version 1.0
  */
-public class Node implements Serializable{
+public class Node implements Serializable {
 
-  /**
-	 * 
-	 */
-	private static final long serialVersionUID = -3711415459592325494L;
-//Attributes
+  private static final long serialVersionUID = -3711415459592325494L;
   private String name;
   private List<String> levels;
   private Cpt cpt;
@@ -30,9 +26,10 @@ public class Node implements Serializable{
     this.children = new ArrayList<Node>();
     this.parents = new ArrayList<Node>();
   }
+  
   /**
    * Constructor 2 of Node object with String parameter "name".
-   * @param name Name of the Node
+   * @param name  name of the Node
    */
   public Node(String name) {
     this.levels = new ArrayList<String>();
@@ -42,8 +39,8 @@ public class Node implements Serializable{
   }
   
   /**
-   * Getter Name of the node.
-   * @return name of node
+   * Getter of the of the node.
+   * @return  name of node
    */
   public String getNodeName() {
     return name;
@@ -51,7 +48,7 @@ public class Node implements Serializable{
   
   /**
    * Method adds parent to node.
-   * @param pn Parent Node
+   * @param pn  parent Node
    */
   public void addParentnode(Node pn) {
     parents.add(pn);
@@ -59,47 +56,47 @@ public class Node implements Serializable{
   
   /**
    * Method adds a child to the node.
-   * @param cn Child Node
+   * @param cn  child Node
    */
   public void addChildnode(Node cn) {
     children.add(cn);
   }
   
   /**
-   * Getter for Parent Nodes.
-   * @return List of Parent Nodes
+   * Getter for parent Nodes.
+   * @return  list of parent Nodes
    */
   public List<Node> getParents() {
     return parents;
   }
   
   /**
-   * Getter for Children Nodes.
-   * @return list of Children Nodes
+   * Getter for children Nodes.
+   * @return list of children Nodes
    */
   public List<Node> getChildren() {
     return children;
   }
   
   /**
-   * Getter for Node Levels.
-   * @return list of Levels 
+   * Getter for Node levels.
+   * @return  list of levels 
    */
   public List<String> getNodeLevels() {
     return levels;
   }       
   
   /**
-   * Setter for Node Name.
-   * @param name Name of Node
+   * Setter for Node name.
+   * @param name  name of Node
    */
   public void setNodeName(String name) {
     this.name = name;
   }
   
   /**
-   * Method adds a Node Level to the Node.
-   * @param level the Level name to add
+   * Method adds a Node level to the Node.
+   * @param level the level name to add
    */
   public void addNodeLevel(String level) { 
     levels.add(level);
@@ -107,6 +104,7 @@ public class Node implements Serializable{
   
   /**
    * Method returns a representation of the Nodes Cpt.
+   * @return return the cpt values.
    */
   public Cpt getCpt() {
     return cpt;
@@ -114,7 +112,7 @@ public class Node implements Serializable{
   
   /**
    * Method sets the nodes Cpt Tables.
-   * @param cpt the cpt table to be used
+   * @param cpt  the cpt table to be used
    */
   public void setCpt(double[] cpt) { 
     String[] nlevels = new String[levels.size()];
@@ -126,9 +124,11 @@ public class Node implements Serializable{
   
   /**
    * Method returns a String representation of the object.
-   *  @return a String representation of the object
+   *  @return  a String representation of the object
    */
+  @Override
   public String toString() {
     return this.name;
   }
+  
 }

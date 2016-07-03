@@ -1,0 +1,29 @@
+Using the Bayesian Network view, a user can create, modify and study a Bayesian Network.
+
+Step 1.
+You first need to select the columns with are a part of the network. Only factor column which don't contain any unknown values may be selected.
+
+Step 2,
+Use the dropdown list to select the algorithm to run. Press the calculate button to 'learn' the network.
+The network will appear to the right. If the network is valid, the CPT values with also be calculated. These can be viewed on a different panel.
+
+A network is valid if:
+* there are no Cirkels.
+* there is a maximum of 1 Arc between two different Nodes. 
+
+Step 3. Optional.
+You can score the network, by selecting a scoring algorithm and pressing the calculate button.
+
+Step 4. Optional
+Use the dropdown menus to select two different Nodes. Using the three button the Arcs can be manipulated.
+
+The options are:
+* Set, a new Arc is created if no Arc exists.
+* Drop, the Arc is deleted if one exists.
+* Reverse, the Arc is reversed if one exists.
+ 
+Step 5.
+With the following buttons results can be saved and loaded:
+* Save Network, this option saves a RES file.
+* Load Network, this option loads a RES file.
+* Export Network, this option exports the network as a R Net file. This file can only be read by R.

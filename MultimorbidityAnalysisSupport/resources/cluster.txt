@@ -1,0 +1,18 @@
+Cluster Analysis is the the process of grouping variables together in such a way 
+that variables in one group are more similar than variables in other groups.
+
+All features, variables based on which clustering will be done, must be numeric 
+or have to be converted to numeric prior clustering. Use the edit panel.
+
+step1: Select the categorical clustering variable based on which the generation of clusters is done.
+
+step2: select the numerical variables (features/properties) based on which clusters are determined.
+
+step3: help determine the optimal number of clusters. A plot of the within groups sum of squares 
+       will be shown as a result: look for a bend in the plot, the moment it starts to go up.
+       
+step4: View the summary of some attributes of the clustering process based on 
+       the (optimal) number of clusters determined in step 3. 
+       repeat this step until it's clear which number will be used for clustering (step 5)
+       
+step5: Determine clustering using a method, given the number of clusters determined in step 3 and 4.  

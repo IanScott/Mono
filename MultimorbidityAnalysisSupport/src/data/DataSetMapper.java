@@ -1,6 +1,8 @@
 package data;
 
 import domain.DataSetInstance;
+import util.MultimorbidityException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,58 +11,68 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Class is the Mapper for the DataSet class. 
+ * This Class saves and loads the class objects to and from a File.
+ * @author ABI team 37
+ * @version 1.0
+ */
 public class DataSetMapper {
-  File file = null;
+  private File file = null;
   
   /**
    * Saves a DataSet.
    * @param dataset DataSet to be saved
+   * @param file save location
+   * @throws MultimorbidityException propagated in gui
    */
-  public void saveDataSet(DataSetInstance dataset, String name) {
+  public void saveDataSet(DataSetInstance dataset,File file) throws MultimorbidityException {
     ObjectOutputStream oos = null;
     try {
-      file = new File("TEMP/"+name+".ser");
       oos = new ObjectOutputStream(  
-      new FileOutputStream(file));
+          new FileOutputStream(file));
       oos.writeObject(dataset);
       oos.close();
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      throw new MultimorbidityException("Error loading File, File not found");
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new MultimorbidityException("Error loading File");
     } finally {
       try {
         if (oos != null) {
           oos.close();
         }
       } catch (IOException e) {
-        e.printStackTrace();
+        throw new MultimorbidityException("Error loading File");
       }
     }
   }
-  
+
   /**
    * Loads a DataSet.
    * @param file File to be loaded
    * @return DataSet from the loaded File
+   * @throws MultimorbidityException propagated in gui
    */
-  public DataSetInstance loadDataSet(File file) {
+  public DataSetInstance loadDataSet(File file) throws MultimorbidityException {
     FileInputStream fis;
-    DataSetInstance dataset = null;
+    DataSetInstance datasetinstance = null;
     try {
       fis = new FileInputStream(file);
       ObjectInputStream oin = new ObjectInputStream(fis);
-      dataset = (DataSetInstance) oin.readObject();
+      datasetinstance = (DataSetInstance) oin.readObject();
       oin.close();
     } catch (IOException | ClassNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    return dataset;
+      throw new MultimorbidityException("Error saving File");
+    }   
+    return datasetinstance;
   }
   
+  /**
+   * Getter for the last save/load location.
+   * @return the location as a File
+   */
   public File getFile() {
     return file;
   }
-  
 }

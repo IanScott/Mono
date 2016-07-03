@@ -1,0 +1,17 @@
+Instruction CountTool
+
+Use this Panel to count variables.
+
+Prerequisites:
+The Variables/Columns have to be Logical (True or False). 
+If the variable you want to count is not this type you can use the Edit Data Menu to convert the variable.
+
+Beware: 
+The values "TRUE"/"true" and 1 with be converted to TRUE.
+The values "FALSE"/"false" and 0 with be converted to FALSE.
+Other values with be converted to <NOT A BOOLEAN>, you will have to manually convert this value to TRUE or FALSE.
+
+The panel automatically tries to group the counted values by a Factor if a Factorial Variable is selected.
+
+Again, only Varibles/Columns with the Factor type (with 0 to N Levels) can be selected.
+Use Edit Data Menu to convert Variables if needed.

@@ -1,33 +1,50 @@
 package util;
 
 import domain.ToolController;
-import guiold.GuiController;
+import gui.ErrorDialog;
+import gui.MainFrame;
 
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * This class is the primary Thread of the application.
+ * @author ABI team 37
+ * @version 1.0
+ */
 public class StartApplication {
+  
+  private StartApplication() {
 
+  }
   /**
    * Starts the application.
    * @param args arguments for main method
    */
   public static void main(String[] args) {
-    //System.setProperty("java.library.path", "C:\\R-3.2.2\\library\\rJava\\jri\\x64");
+
+    setLook();
+    
+    ToolController tc = null;
+    
+    tc = new ToolController();
+
+    if (tc != null) {
+      new MainFrame(tc);
+      new SaveThread(tc).start();
+    }
+  }
+  
+  private static void setLook() {
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     } catch (UnsupportedLookAndFeelException
         | ClassNotFoundException
         | InstantiationException
         | IllegalAccessException e) {
-      // handle exception
-      JOptionPane.showMessageDialog(null,  e.getMessage(),"Error with user interface manager", 
-          JOptionPane.ERROR_MESSAGE);
+      new ErrorDialog(null,"Error with user interface manager" );    
     }
-
-    ToolController tc = new ToolController();
-    new GuiController(tc);
   }
-
+  
+  
 }

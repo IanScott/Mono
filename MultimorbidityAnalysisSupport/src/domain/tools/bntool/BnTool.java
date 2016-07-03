@@ -1,94 +1,132 @@
 package domain.tools.bntool;
 
+import data.BnResultMapper;
 import domain.DataSet;
-import domain.Result;
+import domain.DataSetInstance;
 import domain.tools.Tool;
-import domain.tools.ToolArgument;
-import domain.tools.bntool.BnConvert;
-import domain.tools.bntool.BnResult;
-import domain.tools.bntool.Network;
-
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
-//import java.io.File;
+import util.MultimorbidityException;
 
-import java.util.ArrayList;
-import java.util.List;
-//import java.util.Observable;
+import java.io.File;
 
 /**
  * Class representing a Bayesian network.
  * @author ABI team 37
- * @version 0.2
+ * @version 1.0
  */
-public class BnTool extends Tool{
+public class BnTool extends Tool {
+  /**
+   * Constant Tool Name.
+   */
+  public static final String TOOLNAME = "BNTOOL";
+  /**
+   * Available score types.
+   */
+  public static final String[] SCORE = {"k2","bde","bdes","mbde","aic","bic","loglik",
+    "bge","loglik-g","aic-g","bic-g","loglik-cg","aic-cg","bic-cg"};
   
-	//namae
-	public static final String TOOLNAME = "BNTOOL";
-  // Constants
-  private static final String RVAR = "MyData"; //Data variable in R
-  private static final String[] ALGOR = {"gs", "iamb","hc", "tabu","mmhc"};
-  
+  private static final int HUNDRED = 100;
   // Attributes
   private Network bnnetwork;
-  private List<Network> bnnetworks;
-  private Rengine rengine;
-  //private DataSetController dsController;
+  private String rvariable;
+  private BnResult bnresult;
   
   /**
    * Constructor of BnTool.
+   * @param rengine the REngine to use
    */
-  public BnTool(Rengine ren) {
-	  super(BnTool.TOOLNAME);
-	  this.bnnetworks = new ArrayList<Network>();
-	  this.rengine = ren;       
+  public BnTool(Rengine rengine) {
+    super(BnTool.TOOLNAME,rengine);      
   }
   
- 
-  @Override
-  public BnResult execute() {
-    this.bnnetworks = new ArrayList<Network>();
-    for (int i = 0; i < ALGOR.length; i++) {
-      learn(ALGOR[i]);
-      fitNetwork();
+ /**
+  * Method which creates a fitted Bayesian Network.
+  * @param algor the algorithm to use.
+  * @param columns the names of the columns to use.
+  * @throws MultimorbidityException throws this Exception
+  */
+  public void execute(String algor, String[] columns) throws MultimorbidityException {
+    if (columns == null || columns.length < 2) {
+      return;
     }
-    
-    // TODO Auto-generated method stub
-    return new BnResult(bnnetworks, this);
-  }
-
-  @Override
-  public Result execute(ToolArgument object) {
-    // TODO Auto-generated method stub
-    return null;
+    if (!checkRColumn(columns)) {
+      throw new MultimorbidityException("Columns don't exist in R");
+    } 
+    createTemp(columns);
+    learn(algor);
+    fitNetwork();
+    REXP rexp = eval(RVAR, false);
+    DataSetInstance dsi = DataSet.toDataSetInstace("BNTool", rexp);
+    this.bnresult = new BnResult(this.bnnetwork, dsi);
+    this.setChanged();
+    this.notifyObservers();
   }
   
-  // PRIVAT METHOD(s)
+  /**
+   * Getter for thet Result object.
+   * @return  a BnResult representing the data and Bayesian Network.
+   */
+  public BnResult getBnResult() {
+    return this.bnresult;
+  }
+  
+  /**
+   * Method for checking to see if a BnNetwork has been generated.
+   * @return  true if there is a BnNetwork loaded, else false.
+   */
+  public Boolean hasNetwork() {
+    if (this.bnnetwork == null) {
+      return false;
+    }
+    return true;
+  }
+  
+  /**
+   * Method for checking to see if a BnResult has been generated.
+   * @return  true is there is a BnResult loaded, else false.
+   */
+  public Boolean hasBNResult() {
+    if (this.bnresult == null) {
+      return false;
+    }
+    return true;
+  }
+  
+  // PRIVATE METHOD(s)
   /**
    * Method for learning a Bayesian Network.
    * @param algorithm the algorithm to use
    */
   private void learn(String algorithm) {
-    String rvariable = "bn." + algorithm; // the variable in R
-    REXP data = rengine.eval(RVAR); // Retreaving data
-    REXP network = rengine.eval(rvariable + "<-" + algorithm + "(" + RVAR + ")" );
-    // comment to previous line creating Bayesian Network in R
-    rengine.eval("plot(" + rvariable + ")"); // plotting Bayesian Network
+    REXP network;
+    if (algorithm != null) {
+      rvariable = "bn." + algorithm; // the variable in R
+      network = eval(rvariable + "<-" + algorithm + "(" + RVAR1 + ")" ); 
+    } else {
+      network = eval(rvariable);
+    }
+    comment("# delete '#' in the next line to plot network");
+    String expr = "#plot(" + rvariable + ")";
+    comment(expr);
+    REXP data = eval(RVAR1,false); // Retreaving data
     Network bnnwb = BnConvert.toBnNetwork(data, network); // converting to Java BNNetwork
     this.bnnetwork = bnnwb; // setting last created BNNetwork
+    if (this.bnresult != null) {
+      this.bnresult = new BnResult(bnnetwork,bnresult.getDataSetInstance());
+    }
   }
   
+  
   /**
-   *  Method for adding fitted values to a Bayesian Network.
-   * @param network The Bayesian Network
+   * Method for adding fitted values to a Bayesian Network.
+   * @param network  the Bayesian Network
    */
   private void fitNetwork(Network network) {
-    String algorithm = network.getAlgorithm(); // algorithm used
-    String rvariable = "bn." + algorithm; // the bn.xx variable in R
-    REXP fitted = rengine.eval("res <- bn.fit(" + rvariable + "," + RVAR + ")");
+    String expr = "res <- bn.fit(" + rvariable + "," + RVAR1 + ")";
+    REXP fitted = eval(expr);
     // comment to previous line: getting probability tables
     BnConvert.fit(this.bnnetwork, fitted); // fit the selected network
-    bnnetworks.add(this.bnnetwork); // adding to list of created fitted BNNetworks
   }
   
   /**
@@ -102,7 +140,97 @@ public class BnTool extends Tool{
    * Method returns the selected Bayesian Network.
    * @return bayesian network
    */
-  private Network getBnNetwork() {
+  public Network getBnNetwork() {
     return bnnetwork;
   }
+  
+  /**
+   * Method checks if the Tool has an active fitted network or not.
+   * @return  true if network is fitted, else false.
+   */
+  public Boolean hasFittedNetwork() {
+    if (bnnetwork != null) {
+      return bnnetwork.isFitted();
+    } else {
+      return false;
+    }
+  }
+  
+  /**
+   * Method calculates the score of the Bayesian Network.
+   * @param type  the type of score to calculate, returns zero if score is invalid
+   * @return  an int representing the score value
+   */
+  public double scoreNetwork(String type) {
+    String expr = "score(" + rvariable + ", " + RVAR1 + ", type ='" + type + "')";
+    REXP rexp = eval(expr);
+    double temp = 0;
+    if (rexp != null) {
+      temp = rexp.asDouble(); 
+    }
+    return Math.floor(temp * HUNDRED) / HUNDRED;
+  }
+  
+  /**
+   * Method for editing an Arc of a Network.
+   * @param edit  the type of alteration, only drop, reverse and set allowed
+   * @param nodeA  node a
+   * @param nodeB  node b
+   * @throws MultimorbidityException if action causes invalid state
+   */
+  public void editArc(String edit, String nodeA, String nodeB) throws MultimorbidityException {
+    if (!(edit.equals("drop") || edit.equals("set") || edit.equals("reverse"))) {
+      return;
+    }
+    if (nodeA == null || nodeB == null) {
+      return;
+    }
+    if (nodeA.equals(nodeB)
+        || !bnnetwork.containsNode(nodeA) || !bnnetwork.containsNode(nodeB)) {
+      return;
+    }
+    String expr = rvariable + "<-" + edit + ".arc(" + rvariable + ",'" 
+        + nodeA + "','" + nodeB + "')";
+    REXP test = eval(expr);
+    if (test == null) {
+      throw new MultimorbidityException("Action causes invalid state");
+    }
+    learn(null);
+    fitNetwork(bnnetwork);
+    this.setChanged();
+    this.notifyObservers();
+  }
+  
+  /**
+   * Method to export a Net file from R.
+   * @param path to save file
+   */
+  public void exportNetwork(String path) {
+    String expr = "write.net(" + path + ", res)";
+    eval(expr);
+  }
+  
+  /**
+   * Method for saving a BnResult.
+   * @param file the file to save the result to.
+   * @throws MultimorbidityException  a pop-up will be shown in the gui
+   */
+  public void saveResult(File file) throws MultimorbidityException {
+    if (bnresult != null) {
+      bnresult.saveBnResult(file);
+    }
+  }
+  
+  /**
+   * Method for loading a Result.
+   * @param file  the location to load.
+   * @throws MultimorbidityException  a pop-up will be shown in the gui
+   */
+  public void loadResult(File file) throws MultimorbidityException {
+    this.bnresult = BnResultMapper.loadBnResult(file);
+    this.bnnetwork = bnresult.getNetwork();
+    this.setChanged();
+    this.notifyObservers();
+  }
+  
 }

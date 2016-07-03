@@ -1,0 +1,10 @@
+Instruction Generalized Linear Model (GLM) Tool
+
+Use this Panel to determine the dependency of a single variable on one or more other variables.
+
+Prerequisites:
+The Variables/Columns have to be Factorial (Levels). 
+If the variable you want to count is not the required type you can use the Edit Data Menu to convert the variable.
+
+Again, only Varibles/Columns with the Factor type (with 0 to N Levels) can be selected.
+Use Edit Data Menu to convert Variables if needed.

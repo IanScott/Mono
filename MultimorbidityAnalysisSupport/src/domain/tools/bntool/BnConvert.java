@@ -1,12 +1,6 @@
 package domain.tools.bntool;
 
-import domain.tools.bntool.Association;
-import domain.tools.bntool.Network;
-import domain.tools.bntool.Node;
-
 import org.rosuda.JRI.REXP;
-//import org.rosuda.JRI.RFactor;
-//import org.rosuda.JRI.RVector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,30 +9,35 @@ import java.util.Vector;
 
 /**
  * Class for Converting REXP objects into Java friendly objects.
- * @author ABI team 37
- * @version 0.1
+  * @author ABI team 37
+ * @version 1.0
  */
 public class BnConvert {
-
+  private static final int POSITION = 9;
+  
+  private BnConvert() {
+  }
+  
   /**
    * Method for converting a REXP object into a BN Network.
-   * @param network REXP object to convert
-   * @return a BNNetwork object
+   * @param data  the REXP object containing the dataset.
+   * @param network the REXP object to convert
+   * @return  a BNNetwork object
    */
   public static Network toBnNetwork(REXP data, REXP network) {
-    
+
     List<Node> nodelist = new ArrayList<Node>(); // List of Nodes
     // Error Check
     if (data == null || network == null) {
       return new Network("null",nodelist);
     }
- 
+
     // Temporary Hashmap for storing nodes
     HashMap<String,Node> nodemap = new HashMap<String,Node>();
     REXP rexp1 = network.asVector().at("nodes"); // Nodes
     @SuppressWarnings("unchecked") // Suppressing Type check
     Vector<String> nodeNames = rexp1.asVector().getNames(); // Node Names
-    
+
     // Step 1 create nodes and put in HashMap
     for (int i = 0; i < nodeNames.size(); i++) {
       Node node = new Node();
@@ -47,7 +46,7 @@ public class BnConvert {
       nodemap.put(nodeName, node); // add node to HashMap
       nodelist.add(node); // add node to List
     }
-    
+
     // Step 2 add parents to nodes
     for (int i = 0; i < nodeNames.size(); i++) {
       Node node = nodemap.get(nodeNames.get(i)); // node to edit
@@ -58,7 +57,7 @@ public class BnConvert {
         node.addParentnode(pnode); // add parent node to node
       }      
     }
-    
+
     // Step 3 add children to nodes
     for (int i = 0; i < nodeNames.size(); i++) {
       Node node = nodemap.get(nodeNames.get(i)); // node to edit
@@ -69,20 +68,20 @@ public class BnConvert {
         node.addChildnode(cnode); // add child node to node
       }
     }
-    
+
     // Step 4  get levels
     for (int i = 0; i < nodeNames.size(); i++) {                           
       String rfactor = data.asVector().at(i).asFactor().toString(); // the RFactor as a String
       Node node = nodemap.get(nodeNames.get(i)); // the node to edit
       int end = rfactor.indexOf(')'); // getting level String
-      String temp = rfactor.substring(9, end); // getting level String
+      String temp = rfactor.substring(POSITION, end); // getting level String
       String[] temp2 = temp.split(","); // splitting String
       for (int j = 0; j < temp2.length;j++) {
         String str = temp2[j].substring(1, temp2[j].length() - 1);
         node.addNodeLevel(str); // add level to node
       }
     }
-    
+
     // Step 5 get algorithm on BN Network
     String algorithm = network.asVector().at("learning").asVector().at("algo").asString();          
 
@@ -92,29 +91,36 @@ public class BnConvert {
     for (int i = 0; i < temp.length / 2 ; i++) {
       arcs.add(new Association(nodemap.get(temp[temp.length / 2 + i]), nodemap.get(temp[i])));
     }
-    
+
     // Return BNNetwork
     return new Network(algorithm,nodelist, arcs);         
-
   }
-  
+
   /**
    * Method for fitting a Baysian Network.
-   * @param network a Baysian Network to fit
-   * @param fitted an REXP fitted object
+   * @param network  a Baysian Network to fit
+   * @param fitted  a REXP fitted object
    */
+  @SuppressWarnings({ "unused", "rawtypes" })
   public static void fit(Network network, REXP fitted) {
     if (fitted == null) {
       return;
     }
-    ArrayList<Node> nodes = (ArrayList<Node>) network.getNodes();
-                  
+    network.setFitted();
+    ArrayList<Node> nodes;
+    if (network != null) {
+      nodes = (ArrayList<Node>) network.getNodes();
+    } else {
+      nodes = new ArrayList<Node>();
+      Vector size = fitted.asVector().getNames();
+      ////add code
+    }
+    
     // Step 5 add cpts to nodes
     for (int i = 0; i < nodes.size(); i++) {
       Node node = nodes.get(i); // the node to edit
       double[] da;
       da = fitted.asVector().at(nodes.get(i).getNodeName()).asVector().at("prob").asDoubleArray();
-      // comment to previous line: the double[] of probablities
       node.setCpt(da);
     }
   }
