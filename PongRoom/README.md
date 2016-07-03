@@ -1,11 +1,11 @@
 
 
 # PongRoom
-
+My First Node.js program
 
 
 ## Usage
-
+Install Node.js and run Server.js
 
 
 ## Developing
